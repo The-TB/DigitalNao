@@ -1,13 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-// import { UserModule } from './configuration/auth/user/user.module';
-// import { UserController } from './configuration/auth/user/user.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UserModule } from './configuration/auth/user/user.module';
 import { AuthModule } from './configuration/auth/auth.module';
-// import { UserServiceImpl } from './configuration/auth/user/impl/user.service.impl';
+import { GlobalJwtModule } from './configuration/auth/jwt.module';
 
 @Module({
   imports: [
@@ -15,7 +13,7 @@ import { AuthModule } from './configuration/auth/auth.module';
       isGlobal: true
     }),
     TypeOrmModule.forRootAsync({
-      imports: [ConfigModule,AuthModule],
+      imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         type: 'mysql',
@@ -28,6 +26,7 @@ import { AuthModule } from './configuration/auth/auth.module';
         entities: ["dist/**/*.entity.js"],
       })
     }),
+    GlobalJwtModule,
     UserModule,
     AuthModule
   ],

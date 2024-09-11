@@ -12,8 +12,13 @@ export class UserService {
         private readonly userCustomRepository: UserRepository
     ) {}
 
-    getUsers(){
-        return this.userRepository.find();
+    async getUserByUsername(user: string) {
+        const username = user.toLowerCase();
+        return await this.userRepository.findOne({ where: { username } });
+    }
+
+    async getUsers() {
+        return await this.userRepository.find();
     }
 
     async getUsersfromSTP(): Promise<User[]> {

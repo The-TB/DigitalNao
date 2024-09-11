@@ -1,19 +1,21 @@
-import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcryptjs';
-import { UserRepository } from './user/user.repository';
+import { BadRequestException, Injectable, UnauthorizedException } from "@nestjs/common";
+import { JwtService } from "@nestjs/jwt";
+import * as bcryptjs from "bcryptjs";
+import { UserService } from "./user/user.service";
+import { AuthDTO } from "./dto/auth.dto";
+import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class AuthService {
-    constructor(
-        private readonly userRepository: UserRepository,
-        private readonly jwtService: JwtService,
-    ) { }
+    constructor
+    (private readonly userService: UserService
+    ,private readonly jwtService: JwtService
+    ,private configService: ConfigService) { }
 
-    async validateUser(pusername: string, pass: string): Promise<any> {
-        let username = pusername.toLowerCase();
-        const user = await this.userRepository.findOne({ where: { username } });
-        if (user && await bcrypt.compare(pass, user.password)) {
+    async validate(loginDto : AuthDTO) {
+        const user = await this.userService.getUserByUsername(loginDto.username)
+        
+        if (user && await bcryptjs.compare(loginDto.password, user.password)) {
             const { password, ...result } = user;
             return result;
         }
@@ -21,9 +23,11 @@ export class AuthService {
     }
 
     async login(user: any) {
-        const payload = { username: user.username, sub: user.userId };
+        const payload = { username: user.username, email: user.email, id: user.id };
+        const expiresIn = this.configService.get<string>('auth.expiration');
         return {
-            access_token: this.jwtService.sign(payload),
+            access_token: this.jwtService.sign(payload, { expiresIn }),
+            expires_in: expiresIn,
         };
     }
 }

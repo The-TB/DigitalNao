@@ -1,8 +1,10 @@
 import { Controller, Get, HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { User } from './user.entity';
 import { UserService } from './user.service';
+import { AuthGuard } from '../guard/auth.guard';
 
 @Controller('user')
+@UseGuards(AuthGuard)
 export class UserController {
     constructor(private readonly userService: UserService) {}
 
