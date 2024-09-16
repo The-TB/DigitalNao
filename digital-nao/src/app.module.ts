@@ -6,6 +6,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UserModule } from './configuration/auth/user/user.module';
 import { AuthModule } from './configuration/auth/auth.module';
 import { GlobalJwtModule } from './configuration/auth/jwt.module';
+import { UserAddressModule } from './modules/user-address.module';
+import { PropertyModule } from './modules/property.module';
 
 @Module({
   imports: [
@@ -27,8 +29,10 @@ import { GlobalJwtModule } from './configuration/auth/jwt.module';
       })
     }),
     GlobalJwtModule,
+    PropertyModule,
+    AuthModule,
     UserModule,
-    AuthModule
+    UserAddressModule    
   ],
   controllers: [AppController],
   providers: [AppService],

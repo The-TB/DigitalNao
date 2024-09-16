@@ -9,18 +9,6 @@ export class UserRepository extends Repository<User> {
         super(User, dataSource.createEntityManager());
     }
 
-    async getUsers(): Promise<User[]> {
-        try {
-            const [results] = await this.dataSource.query('CALL AUTH.GET_USERS()');
-            console.log('Raw Results:', results);
-            const userResults = results as any[];
-            return this.mapToUsers(userResults);
-        } catch (e) {
-            console.error('getUsers -> Error.', e);
-            throw e;
-        }
-    }
-
     mapToUsers(rawResults: any[]): User[] {
         return rawResults.map((row: any) => {
             const user = new User();
@@ -30,5 +18,17 @@ export class UserRepository extends Repository<User> {
             user.password = row.PASSWORD;
             return user;
         });
+    }
+    
+    async getUsers(): Promise<User[]> {
+        try {
+            const [rawResult] = await this.dataSource.query('CALL AUTH.GET_USERS()');
+            console.log('Raw Results:', rawResult);
+            const result = rawResult as any[];
+            return this.mapToUsers(result);
+        } catch (e) {
+            console.error('getUsers -> Error.', e);
+            throw e;
+        }
     }
 }
