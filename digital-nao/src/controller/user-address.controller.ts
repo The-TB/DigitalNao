@@ -1,7 +1,7 @@
-import { Controller, Get, HttpException, HttpStatus, UseGuards, Request, Post, Body, Patch, Delete } from '@nestjs/common';
+import { Controller, Get, UseGuards, Request, Post, Body, Patch, Delete } from '@nestjs/common';
 import { AuthGuard } from '../configuration/auth/guard/auth.guard';
 import { UserAddressService } from '../service/user-address.service';
-import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateAddressDTO } from '../entity/dto/create-address.dto';
 import { UpdateAddressDTO } from '../entity/dto/update-address.dto';
 import { DeleteAddressDTO } from '../entity/dto/delete-address.dto';
@@ -53,7 +53,7 @@ export class UserAddressController {
     }
 
     @Delete()
-    @ApiOperation({ summary: 'Eliminar una dirección del usuario logeado.' })
+    @ApiOperation({ summary: 'Actualizar una dirección del usuario logeado.' })
     @ApiResponse({ status: 201, description: 'Creado.' })
     @ApiResponse({ status: 304, description: 'No se pudo eliminar.' })
     @ApiResponse({ status: 406, description: 'Hace falta un id.' })

@@ -3,7 +3,7 @@ import { ApiProperty } from "@nestjs/swagger";
 export class UpdateAddressDTO {
     @ApiProperty({ description: 'id del registro, internamente se relciona con el id del usuario logeado', example: 100 })
     id: number;
-    id_username: number;
+    id_username?: number;
     @ApiProperty({ description: 'Código del país', example: 'MX' })
     country_code: string;
     @ApiProperty({ description: 'Código Postal', example: '64000' })

@@ -9,7 +9,7 @@ export class UserAddress {
     @Column({ unique: true, default: 1 })
     is_active: number;
     @Column({ unique: true })
-    country_code: number;
+    country_code: string;
     @Column({ unique: true })
     zipcode: number;
     @Column({ unique: true })
