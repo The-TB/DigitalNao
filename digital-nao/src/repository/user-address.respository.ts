@@ -1,7 +1,9 @@
 import { DataSource, Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
-import { UserAddress } from 'src/entity/user-address.entity';
-import { UserAddressDTO } from 'src/entity/dto/user-address.dto';
+import { UserAddress } from '../entity/user-address.entity';
+import { CreateAddressDTO } from '../entity/dto/create-address.dto';
+import { UpdateAddressDTO } from '../entity/dto/update-address.dto';
+import { DeleteAddressDTO } from '../entity/dto/delete-address.dto';
 
 @Injectable()
 export class UserAddressRepository extends Repository<UserAddress> {
@@ -42,7 +44,7 @@ export class UserAddressRepository extends Repository<UserAddress> {
         }
     }
 
-    async addAddress(address: UserAddressDTO): Promise<boolean> {
+    async addAddress(address: CreateAddressDTO): Promise<boolean> {
         try {
             const [rawResult] = await this.dataSource.query(
                 'CALL NAODB.ADD_USER_ADDRESS(?,?,?,?,?,?,?)',
@@ -69,7 +71,7 @@ export class UserAddressRepository extends Repository<UserAddress> {
         }
     }
 
-    async updateAddress(address: UserAddressDTO): Promise<boolean> {
+    async updateAddress(address: UpdateAddressDTO): Promise<boolean> {
         try {
             const [rawResult] = await this.dataSource.query(
                 'CALL NAODB.UPDATE_USER_ADDRESS(?,?,?,?,?,?,?,?)',
@@ -97,7 +99,7 @@ export class UserAddressRepository extends Repository<UserAddress> {
         }
     }
 
-    async deleteAddress(address: UserAddressDTO): Promise<boolean> {
+    async deleteAddress(address: DeleteAddressDTO): Promise<boolean> {
         try {
             const [rawResult] = await this.dataSource.query(
                 'CALL NAODB.DELETE_USER_ADDRESS(?,?)',

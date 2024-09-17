@@ -1,9 +1,11 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { GenericResponseDTO } from 'src/configuration/auth/dto/generic-response.dto';
-import { UserAddressDTO } from 'src/entity/dto/user-address.dto';
-import { UserAddress } from 'src/entity/user-address.entity';
-import { UserAddressRepository } from 'src/repository/user-address.respository';
+import { GenericResponseDTO } from '../configuration/auth/dto/generic-response.dto';
+import { UserAddress } from '../entity/user-address.entity';
+import { UserAddressRepository } from '../repository/user-address.respository';
 import { PropertyService } from './property.service';
+import { CreateAddressDTO } from '../entity/dto/create-address.dto';
+import { UpdateAddressDTO } from '../entity/dto/update-address.dto';
+import { DeleteAddressDTO } from '../entity/dto/delete-address.dto';
 
 @Injectable()
 export class UserAddressService {
@@ -18,9 +20,10 @@ export class UserAddressService {
         return result;
     }
 
-    async addAddress(address: UserAddressDTO): Promise<GenericResponseDTO<boolean>> {
-        if (address.id)
-            throw new HttpException('id is not allowed here.', HttpStatus.NOT_ACCEPTABLE)
+    async addAddress(address: CreateAddressDTO): Promise<GenericResponseDTO<boolean>> {
+        if (!address.country_code || !address.zipcode || !address.address_1 || !address.receptor_name || !address.phone_number)
+            throw new HttpException('mandatory param is missing.', HttpStatus.BAD_REQUEST)
+
 
         const param = await this.propertyService.getPropertyByCode('ADDRESS_LIMIT');
         const limit = Number(param.value);
@@ -43,7 +46,7 @@ export class UserAddressService {
         }
     }
 
-    async updateAddress(address: UserAddressDTO): Promise<GenericResponseDTO<boolean>> {
+    async updateAddress(address: UpdateAddressDTO): Promise<GenericResponseDTO<boolean>> {
         if (!address.id)
             throw new HttpException('id must be present.', HttpStatus.NOT_ACCEPTABLE)
         
@@ -60,7 +63,7 @@ export class UserAddressService {
         }
     }
 
-    async deleteAddress(address: UserAddressDTO): Promise<GenericResponseDTO<boolean>> {
+    async deleteAddress(address: DeleteAddressDTO): Promise<GenericResponseDTO<boolean>> {
         if (!address.id)
             throw new HttpException('id must be present.',HttpStatus.NOT_ACCEPTABLE)
         try {
