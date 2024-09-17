@@ -1,10 +1,10 @@
 export class GenericResponseDTO<T> {
-    response: T;
+    result: T;
     message: string;
     statusCode: number;
 
     constructor(response: T, message: string, statusCode: number) {
-        this.response = response;
+        this.result = response;
         this.message = message;
         this.statusCode = statusCode;
     }
