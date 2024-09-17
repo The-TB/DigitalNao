@@ -32,6 +32,7 @@ curl --location 'http://localhost:3000/'
 ![Docker-container-run](screenshots/sprint3/cli-container-run.png)
 ![app-deployed](screenshots/sprint3/app-adeployed.png)
 
+# Si el link no esta arriba, favor de contactar en discord tavo_fajardo para dar de alta servicio expuesto
 ![app-deployed-link](http://3.17.29.58:3000/api)
 ![app-deployed-test](screenshots/sprint3/swagger-test-deployed.png)
 
