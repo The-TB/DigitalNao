@@ -12,6 +12,7 @@ curl --location 'http://localhost:3000/'
 
 # DigitalNao Sprint 2
 
+![scripts-sp](../scripts/)
 ![auth/token](screenshots/sprint2/auth-token.png)
 ![unauthorized](screenshots/sprint2/unauthorized.png)
 ![user/getAll](screenshots/sprint2/getAll.png)
@@ -26,3 +27,11 @@ curl --location 'http://localhost:3000/'
 ![swagger-main](screenshots/sprint3/swagger.png)
 ![swagger-auth-request](screenshots/sprint3/swagger-auth.png)
 ![e2e-address-service](screenshots/sprint3/e2e-service.png)
+
+
+![Docker-container-run](screenshots/sprint3/cli-container-run.png)
+![app-deployed](screenshots/sprint3/app-adeployed.png)
+
+![app-deployed-link](http://3.17.29.58:3000/api)
+![app-deployed-test](screenshots/sprint3/swagger-test-deployed.png)
+
