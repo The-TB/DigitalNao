@@ -20,3 +20,9 @@ curl --location 'http://localhost:3000/'
 ![address POST 406](screenshots/sprint2/address-post-406.png)
 ![address PATCH](screenshots/sprint2/address-patch.png)
 ![address DELETE](screenshots/sprint2/address-delete.png)
+
+# DigitalNao Sprint 3
+
+![swagger-main](screenshots/sprint3/swagger.png)
+![swagger-auth-request](screenshots/sprint3/swagger-auth.png)
+![e2e-address-service](screenshots/sprint3/e2e-service.png)
